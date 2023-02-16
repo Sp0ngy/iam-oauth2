@@ -41,9 +41,9 @@
                  Figure 2: Refreshing an Expired Access Token
 
 # cURL (client URL) Commands
-curl -d "data1=myname&data2=unicorn" "myurl:8000/whatever" posts -data to url
-curl -H "Headerinformation: XYZ" adds -Header information
-curl -H "Headerinformation: XYZ" -d "data1=myname&data2=unicorn" "myurl:8000/whatever"
+- `curl -d "data1=myname&data2=unicorn" "myurl:8000/whatever" posts -data to url`
+- `curl -H "Headerinformation: XYZ" adds -Header information`
+- `curl -H "Headerinformation: XYZ" -d "data1=myname&data2=unicorn" "myurl:8000/whatever"`
 
 # OAuth 2.0 for Browser-Based for First-Party Apps
 Reference: [Datatracker](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#name-first-party-applications)
