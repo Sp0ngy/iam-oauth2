@@ -6,8 +6,8 @@ import requests
 
 from users.serializer import CreateUserSerializer
 
-CLIENT_ID = 'hEE6kWllNGfnNnW09I2CcHwozh8aG5kkrJLPclgh'
-CLIENT_SECRET = 'Q1bEW47wmazSS7P11KMs6DiWA6ZD9PfmINMRMyucDdrPWvgbOug1b998TNb8JnmeuGR4fP2jFdVJR0zOZfkFUAkduvz4VbpcROroipxHpMkK0sMJ4BkLQIwaWo1EV4pH'
+CLIENT_ID = 'Zl5jJTtI1EHaU86veg000Jla8INBMYAlCvVArAqb'
+CLIENT_SECRET = 'oC838JkGF0ts3sA9IX5ejrLAdTmgdMS664jIBTrOrM6Pk13aq7JFypga1f9TQ89xaduThza97UPer4sSMQntS88BEkcZDnEychhzrDIfR7IgNW51kJPyUhkZ4aIPNM5Z'
 
 
 # TODO: First-Party Applications MUST NOT use "resource owner password credentials grant" --> change to "authorization
@@ -23,21 +23,25 @@ def register(request):
     '''
     # Put the data from the request into the serializer
     serializer = CreateUserSerializer(data=request.data)
+
     # Validate the data
     if serializer.is_valid():
         # If it is valid, save the data (creates a user).
         serializer.save()
         # Then we get a token for the created user.
         # This could be done differently
-        r = requests.post('http://127.0.0.1:8000/o/token/',
+        r = requests.get('http://127.0.0.1:8000/o/token/',
                           data={
-                              'grant_type': 'password',
-                              'username': request.data['username'],
-                              'password': request.data['password'],
+                              'response_type': 'code',
                               'client_id': CLIENT_ID,
-                              'client_secret': CLIENT_SECRET,
+                              'redirect_uri': 'http://127.0.0.1:8000/noexist/callback',
+                          },
+                          headers={
+                              'content-type': "application/x-www-form-urlencoded",
+                              'cache-control': "no-cache",
                           },
                           )
+        print(r)
         return Response(r.json())
     return Response(serializer.errors)
 
